@@ -1,11 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import ItemCard from "../Components/ItemCard";
 import { getDataFromAPI } from "../Data/FakeStoreApi";
 
-function HomePage() {
-  const [itemsData, setItemsData] = useState([]);
-
+function HomePage({ itemsData, setItemsData, onSearch }) {
   useEffect(() => {
     getDataFromAPI().then((data) => setItemsData(data));
   }, []);
@@ -21,12 +19,12 @@ function HomePage() {
           component="h1"
           sx={{ color: "#0F4C75", display: "flex", justifyContent: "center" }}
         >
-          Loading...
+          {onSearch ? "No Results Found" : "Loading..."}
         </Typography>
       ) : (
         <Grid container spacing={2}>
-          {itemsData.map((item, index) => (
-            <Grid key={index} item xs={12} sm={4} md={3}>
+          {itemsData.map((item) => (
+            <Grid key={item.id} item xs={12} sm={4} md={3}>
               <ItemCard itemData={item} />
             </Grid>
           ))}

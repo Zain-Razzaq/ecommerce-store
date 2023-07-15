@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -50,9 +51,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchAppBar() {
+function SearchAppBar({ itemsData, setFilteredData, setOnSearch }) {
+  const [serachText, setSerachText] = useState("");
+
+  useEffect(() => {
+    const searchTime = setTimeout(() => {
+      if (serachText === "") {
+        setOnSearch(false);
+        return;
+      }
+      setOnSearch(true);
+      const filteredData = itemsData.filter((item) =>
+        item.title.toLowerCase().includes(serachText.toLowerCase())
+      );
+      setFilteredData(filteredData);
+    }, 1000);
+    return () => clearTimeout(searchTime);
+  }, [serachText]);
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar
         position="fixed"
         sx={{
@@ -85,6 +103,7 @@ function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setSerachText(e.target.value)}
             />
           </Search>
         </Toolbar>
