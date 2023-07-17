@@ -24,12 +24,12 @@ function AddItemPage() {
   return (
     <Box
       sx={{
-        width: "500px",
+        maxWidth: "500px",
         marginX: "auto",
         marginTop: "100px",
       }}
     >
-      <form onSubmit={handelFormSubmit}>
+      <form onSubmit={handelFormSubmit} autoComplete="false">
         <Typography variant="h4" component="h4" color="#0F4C75" marginY="10px">
           Add New Item
         </Typography>

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
 import ItemCard from "../components/ItemCard";
-import { Container, Typography, Grid, Fab, Add } from "../lib/materialUI";
+import { Container, Typography, Grid, Button } from "../lib/materialUI";
 
 function HomePage({ itemsData, setItemsData, searchText }) {
   useEffect(() => {
@@ -34,13 +34,13 @@ function HomePage({ itemsData, setItemsData, searchText }) {
       <Typography variant="h4" component="h1" marginY={4} color={"#0F4C75"}>
         All Categories
       </Typography>
-      <Fab
+      <Button
         href="/add"
-        color="primary"
-        sx={{ position: "fixed", top: "80px", right: "30px" }}
+        sx={{ position: "absolute", top: "80px", right: "30px" }}
+        variant="contained"
       >
-        <Add />
-      </Fab>
+        Add
+      </Button>
       {itemsData.length ? (
         <Grid container spacing={2}>
           {itemsData.map((item) => (
