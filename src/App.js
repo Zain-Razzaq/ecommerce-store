@@ -1,39 +1,33 @@
 import React, { useState } from "react";
-
-import SearchAppBar from "./Components/NavBar";
-import HomePage from "./Pages/HomePage";
 import { Routes, Route } from "react-router-dom";
+
+import SearchAppBar from "./components/NavBar";
+import HomePage from "./pages/HomePage";
+import AddItemPage from "./pages/AddItemPage";
 
 function App() {
   const [itemsData, setItemsData] = useState([]);
-  const [search, setSearch] = useState({
-    isSearching: false,
-    searchedItems: [],
-  });
+  const [searchText, setSearchText] = useState("");
 
-  function deleteItem(id) {
-    setItemsData(itemsData.filter((item) => item.id !== id));
-    setSearch({
-      isSearching: search.isSearching,
-      searchedItems: search.searchedItems.filter((item) => item.id !== id),
-    });
+  function addItem(newItem) {
+    setItemsData([...itemsData, newItem]);
   }
 
   return (
     <>
-      <SearchAppBar itemsData={itemsData} setSearch={setSearch} />
+      <SearchAppBar setSearch={setSearchText} />
       <Routes>
         <Route
           path="/"
           element={
             <HomePage
-              itemsData={search.isSearching ? search.searchedItems : itemsData}
+              itemsData={itemsData}
               setItemsData={setItemsData}
-              isSearching={search.isSearching}
-              deleteItem={deleteItem}
+              searchText={searchText}
             />
           }
         />
+        <Route path="/add" element={<AddItemPage addItem={addItem} />} />
       </Routes>
     </>
   );

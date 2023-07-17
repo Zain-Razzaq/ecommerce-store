@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-
 import {
   alpha,
   styled,
@@ -11,7 +9,7 @@ import {
   Typography,
   SearchIcon,
   InputBase,
-} from "../lib/lib";
+} from "../lib/materialUI";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,23 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchAppBar({ itemsData, setSearch }) {
-  const [serachText, setSerachText] = useState("");
-
-  useEffect(() => {
-    const searchTime = setTimeout(() => {
-      if (serachText === "") {
-        setSearch({ isSearching: false, searchedItems: [] });
-        return;
-      }
-      const filteredData = itemsData.filter(({ title }) =>
-        title.toLowerCase().includes(serachText.toLowerCase())
-      );
-      setSearch({ isSearching: true, searchedItems: filteredData });
-    }, 1000);
-    return () => clearTimeout(searchTime);
-  }, [serachText]);
-
+function SearchAppBar({ setSearch }) {
   return (
     <Box>
       <AppBar
@@ -94,7 +76,11 @@ function SearchAppBar({ itemsData, setSearch }) {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block", cursor: "pointer" },
+            }}
+            onClick={() => window.location.replace("/")}
           >
             My Webstore
           </Typography>
@@ -105,7 +91,7 @@ function SearchAppBar({ itemsData, setSearch }) {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={({ target: { value } }) => setSerachText(value)}
+              onChange={({ target: { value } }) => setSearch(value)}
             />
           </Search>
         </Toolbar>

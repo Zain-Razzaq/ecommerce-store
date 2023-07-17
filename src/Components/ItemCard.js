@@ -10,7 +10,7 @@ import {
   Box,
   IconButton,
   Icon,
-} from "../lib/lib";
+} from "../lib/materialUI";
 
 function ItemCard({
   itemData: { id, title, description, image, price },

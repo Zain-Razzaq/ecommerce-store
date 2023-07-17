@@ -1,6 +1,6 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import ItemCard from "../Components/ItemCard";
+import ItemCard from "../components/ItemCard";
 import styled from "@mui/material/styles/styled";
 import { alpha } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -17,6 +17,11 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Icon from "@mui/material/Icon";
 import Rating from "@mui/material/Rating";
+import TextField from "@mui/material/TextField";
+import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
+import Add from "@mui/icons-material/Add";
 
 export {
   Container,
@@ -38,4 +43,9 @@ export {
   CardMedia,
   Icon,
   Rating,
+  TextField,
+  Switch,
+  Button,
+  Fab,
+  Add,
 };
