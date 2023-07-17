@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 
 import SearchAppBar from "./Components/NavBar";
-import HomePage from "./Pages/Home";
+import HomePage from "./Pages/HomePage";
 
 function App() {
   const [itemsData, setItemsData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [onSearch, setOnSearch] = useState(false);
-
+  const [search, setSearch] = useState({
+    isSearching: false,
+    searchedItems: [],
+  });
   return (
     <>
-      <SearchAppBar
-        itemsData={itemsData}
-        setFilteredData={setFilteredData}
-        setOnSearch={setOnSearch}
-      />
+      <SearchAppBar itemsData={itemsData} setSearch={setSearch} />
       <HomePage
-        itemsData={onSearch ? filteredData : itemsData}
+        itemsData={search.isSearching ? search.searchedItems : itemsData}
         setItemsData={setItemsData}
-        onSearch={onSearch}
+        isSearching={search.isSearching}
       />
     </>
   );

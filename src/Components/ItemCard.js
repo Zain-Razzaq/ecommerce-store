@@ -1,13 +1,18 @@
-import * as React from "react";
+import React from "react";
 
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Box, Icon, IconButton, Rating } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Rating,
+  CardActions,
+  Box,
+  IconButton,
+  Icon,
+} from "../lib/lib";
 
-function ItemCard({ itemData }) {
+function ItemCard({ itemData: { title, description, image, price } }) {
   return (
     <Card
       sx={{
@@ -19,7 +24,7 @@ function ItemCard({ itemData }) {
       <CardMedia
         component="img"
         alt="green iguana"
-        image={itemData.image}
+        image={image}
         height="250"
       />
       <CardContent
@@ -36,14 +41,14 @@ function ItemCard({ itemData }) {
           component="div"
           sx={{ color: "#3282B8", height: "30px", overflow: "hidden" }}
         >
-          {itemData.title}
+          {title}
         </Typography>
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{ height: "100px", marginBottom: "10px", overflow: "scroll" }}
         >
-          {itemData.description}
+          {description}
         </Typography>
         <Box
           sx={{
@@ -70,7 +75,7 @@ function ItemCard({ itemData }) {
           }}
         >
           <Typography variant="h6" color={"#3282B8"}>
-            ${itemData.price}
+            ${price}
           </Typography>
           <Typography
             sx={{ color: "green" }}

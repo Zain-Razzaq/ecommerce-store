@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import {
+  alpha,
+  styled,
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  MenuIcon,
+  Typography,
+  SearchIcon,
+  InputBase,
+} from "../lib/lib";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,20 +54,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchAppBar({ itemsData, setFilteredData, setOnSearch }) {
+function SearchAppBar({ itemsData, setSearch }) {
   const [serachText, setSerachText] = useState("");
 
   useEffect(() => {
     const searchTime = setTimeout(() => {
       if (serachText === "") {
-        setOnSearch(false);
+        setSearch({ isSearching: false, searchedItems: [] });
         return;
       }
-      setOnSearch(true);
-      const filteredData = itemsData.filter((item) =>
-        item.title.toLowerCase().includes(serachText.toLowerCase())
+      const filteredData = itemsData.filter(({ title }) =>
+        title.toLowerCase().includes(serachText.toLowerCase())
       );
-      setFilteredData(filteredData);
+      setSearch({ isSearching: true, searchedItems: filteredData });
     }, 1000);
     return () => clearTimeout(searchTime);
   }, [serachText]);
@@ -103,7 +105,7 @@ function SearchAppBar({ itemsData, setFilteredData, setOnSearch }) {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={(e) => setSerachText(e.target.value)}
+              onChange={({ target: { value } }) => setSerachText(value)}
             />
           </Search>
         </Toolbar>
