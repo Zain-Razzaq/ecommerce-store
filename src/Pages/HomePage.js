@@ -5,7 +5,7 @@ import ItemCard from "../Components/ItemCard";
 
 import { Container, Typography, Grid } from "../lib/lib";
 
-function HomePage({ itemsData, setItemsData, isSearching }) {
+function HomePage({ itemsData, setItemsData, isSearching, deleteItem }) {
   useEffect(() => {
     getDataFromAPI().then((data) => setItemsData(data));
   }, []);
@@ -19,7 +19,7 @@ function HomePage({ itemsData, setItemsData, isSearching }) {
         <Grid container spacing={2}>
           {itemsData.map((item) => (
             <Grid key={item.id} item xs={12} sm={4} md={3}>
-              <ItemCard itemData={item} />
+              <ItemCard itemData={item} deleteItem={deleteItem} />
             </Grid>
           ))}
         </Grid>

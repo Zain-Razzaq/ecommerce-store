@@ -12,7 +12,10 @@ import {
   Icon,
 } from "../lib/lib";
 
-function ItemCard({ itemData: { title, description, image, price } }) {
+function ItemCard({
+  itemData: { id, title, description, image, price },
+  deleteItem,
+}) {
   return (
     <Card
       sx={{
@@ -89,7 +92,7 @@ function ItemCard({ itemData: { title, description, image, price } }) {
             <IconButton color="primary">
               <Icon>edit</Icon>
             </IconButton>
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={() => deleteItem(id)}>
               <Icon>delete</Icon>
             </IconButton>
           </CardActions>
