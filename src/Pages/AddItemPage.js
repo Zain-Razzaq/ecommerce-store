@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { toast } from "react-toastify";
 
 import { addItemInAPI } from "../data/fakeStoreApi";
 import { Box, Typography, TextField, Switch, Button } from "../lib/materialUI";
@@ -16,11 +15,9 @@ function AddItemPage() {
     newItem.description = document.getElementById("description").value;
     newItem.price = document.getElementById("price").value;
     newItem.image = document.getElementById("image").value;
-    console.log(await addItemInAPI(newItem));
-    toast.success("Item Added Successfully", { theme: "colored" });
+    await addItemInAPI(newItem);
     navigte("/"); // navigate to home page
   }
-
   return (
     <Box
       sx={{

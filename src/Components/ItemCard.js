@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Card,
@@ -16,6 +17,7 @@ function ItemCard({
   itemData: { id, title, description, image, price },
   deleteItem,
 }) {
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
@@ -89,7 +91,7 @@ function ItemCard({
             In stock
           </Typography>
           <CardActions>
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={() => navigate(`/edit/${id}`)}>
               <Icon>edit</Icon>
             </IconButton>
             <IconButton color="primary" onClick={() => deleteItem(id)}>

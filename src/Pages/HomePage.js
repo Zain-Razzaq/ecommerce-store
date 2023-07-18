@@ -1,5 +1,4 @@
 import { React, useEffect } from "react";
-import { toast } from "react-toastify";
 
 import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
 import ItemCard from "../components/ItemCard";
@@ -23,10 +22,8 @@ function HomePage({ itemsData, setItemsData, searchText }) {
   }, [searchText]);
 
   async function deleteItem(id) {
-    const data = await deleteItemFromAPI(id);
-    setItemsData(itemsData.filter((item) => item.id !== id));
-    console.log(data);
-    toast.success("Item Deleted Successfully", { theme: "colored" });
+    const deleted = await deleteItemFromAPI(id);
+    deleted && setItemsData(itemsData.filter((item) => item.id !== id));
   }
 
   return (
