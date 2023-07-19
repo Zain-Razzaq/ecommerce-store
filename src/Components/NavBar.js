@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   alpha,
   styled,
@@ -53,6 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchAppBar({ setSearch }) {
+  const navigate = useNavigate();
   return (
     <Box>
       <AppBar
@@ -80,7 +82,7 @@ function SearchAppBar({ setSearch }) {
               flexGrow: 1,
               display: { xs: "none", sm: "block", cursor: "pointer" },
             }}
-            onClick={() => window.location.replace("/")}
+            onClick={() => navigate("/")}
           >
             My Webstore
           </Typography>

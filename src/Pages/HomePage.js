@@ -1,4 +1,5 @@
 import { React, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
 import ItemCard from "../components/ItemCard";
@@ -7,7 +8,7 @@ import { Container, Typography, Grid, Button } from "../lib/materialUI";
 function HomePage({ itemsData, setItemsData, searchText }) {
   useEffect(() => {
     getDataFromAPI().then((data) => setItemsData(data));
-  }, []);
+  }, [setItemsData]);
 
   useEffect(() => {
     const searchTime = setTimeout(() => {
@@ -19,11 +20,14 @@ function HomePage({ itemsData, setItemsData, searchText }) {
       });
     }, 500);
     return () => clearTimeout(searchTime);
-  }, [searchText]);
+  }, [searchText, setItemsData]);
 
   async function deleteItem(id) {
     const deleted = await deleteItemFromAPI(id);
-    deleted && setItemsData(itemsData.filter((item) => item.id !== id));
+    if (deleted) {
+      toast.success("Item Deleted Successfully", { theme: "colored" });
+      setItemsData(itemsData.filter((item) => item.id !== id));
+    } else toast.error("Unable to Delete Item", { theme: "colored" });
   }
 
   return (

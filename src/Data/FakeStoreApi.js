@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 function getDataFromAPI() {
   return fetch("https://fakestoreapi.com/products")
     .then((response) => response.json())
@@ -11,15 +9,8 @@ function deleteItemFromAPI(id) {
     method: "DELETE",
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      toast.success("Item Deleted Successfully", { theme: "colored" });
-      return true;
-    })
-    .catch((error) => {
-      toast.error("Unable to Delete Item", { theme: "colored" });
-      return false;
-    });
+    .then((data) => data)
+    .catch((error) => false);
 }
 
 function addItemInAPI({ title, price, description, image, category }) {
@@ -34,21 +25,17 @@ function addItemInAPI({ title, price, description, image, category }) {
     }),
   })
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      toast.success("Item Added Successfully", { theme: "colored" });
-    })
-    .catch((error) => toast.error("Unable to Add Item", { theme: "colored" }));
+    .then((data) => data)
+    .catch((error) => false);
 }
 
-function getDataForId(id) {
+function getProductById(id) {
   return fetch(`https://fakestoreapi.com/products/${id}`)
     .then((res) => res.json())
     .catch((error) => console.error(error));
 }
 
 function updateItemInAPI(updatedItem) {
-  console.log(updatedItem);
   const { id, title, price, description, image, category } = updatedItem;
   return fetch(`https://fakestoreapi.com/products/${id}`, {
     method: "PUT",
@@ -61,18 +48,14 @@ function updateItemInAPI(updatedItem) {
     }),
   })
     .then((res) => res.json())
-    .then((data) => {
-      toast.success("Item Updated Successfully", { theme: "colored" });
-    })
-    .catch((error) =>
-      toast.error("Unable to Update Item", { theme: "colored" })
-    );
+    .then((data) => data)
+    .catch((error) => false);
 }
 
 export {
   getDataFromAPI,
   deleteItemFromAPI,
   addItemInAPI,
-  getDataForId,
+  getProductById,
   updateItemInAPI,
 };
