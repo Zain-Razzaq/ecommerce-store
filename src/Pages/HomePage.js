@@ -1,14 +1,20 @@
 import { React, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
+import { getDataFromAPI, deleteItemFromAPI } from "../api/fakeStoreApi";
 import ItemCard from "../components/ItemCard";
 import { Container, Typography, Grid, Button } from "../lib/materialUI";
+import { itemDeletedByID, itemsInitialized } from "../data/itemsData";
 
-function HomePage({ itemsData, setItemsData, searchText }) {
+function HomePage() {
+  const items = useSelector((state) => state.itemsData);
+  const searchText = useSelector((state) => state.searchText);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getDataFromAPI().then((data) => setItemsData(data));
-  }, [setItemsData]);
+    getDataFromAPI().then((data) => dispatch(itemsInitialized(data)));
+  }, [dispatch]);
 
   useEffect(() => {
     const searchTime = setTimeout(() => {
@@ -16,17 +22,17 @@ function HomePage({ itemsData, setItemsData, searchText }) {
         const filteredData = data.filter((item) =>
           item.title.toLowerCase().includes(searchText.toLowerCase())
         );
-        setItemsData(filteredData);
+        dispatch(itemsInitialized(filteredData));
       });
     }, 500);
     return () => clearTimeout(searchTime);
-  }, [searchText, setItemsData]);
+  }, [dispatch, searchText]);
 
   async function deleteItem(id) {
     const deleted = await deleteItemFromAPI(id);
     if (deleted) {
       toast.success("Item Deleted Successfully", { theme: "colored" });
-      setItemsData(itemsData.filter((item) => item.id !== id));
+      dispatch(itemDeletedByID(id));
     } else toast.error("Unable to Delete Item", { theme: "colored" });
   }
 
@@ -42,9 +48,9 @@ function HomePage({ itemsData, setItemsData, searchText }) {
       >
         Add
       </Button>
-      {itemsData.length ? (
+      {items.length ? (
         <Grid container spacing={2}>
-          {itemsData.map((item) => (
+          {items.map((item) => (
             <Grid key={item.id} item xs={12} sm={4} md={3}>
               <ItemCard itemData={item} deleteItem={deleteItem} />
             </Grid>

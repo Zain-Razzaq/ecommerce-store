@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Box, Typography, TextField, Button } from "../lib/materialUI";
-import { getProductById, updateItemInAPI } from "../data/fakeStoreApi";
+import { getProductById, updateItemInAPI } from "../api/fakeStoreApi";
 import { validateFormData } from "../utility/fromValidation";
 
 function EditPage() {
@@ -63,6 +63,7 @@ function EditPage() {
         padding: "1rem",
         margin: "70px auto",
         maxWidth: "600px",
+        overflow: "hidden",
       }}
     >
       <form onSubmit={handelFormSubmit}>

@@ -1,34 +1,17 @@
-import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import SearchAppBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import AddItemPage from "./pages/AddItemPage";
 import EditPage from "./pages/EditPage";
 
 function App() {
-  const [itemsData, setItemsData] = useState([]);
-  const [searchText, setSearchText] = useState("");
-
-  function addItem(newItem) {
-    setItemsData([...itemsData, newItem]);
-  }
-
   return (
     <>
-      <SearchAppBar setSearch={setSearchText} />
+      <NavBar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              itemsData={itemsData}
-              setItemsData={setItemsData}
-              searchText={searchText}
-            />
-          }
-        />
-        <Route path="/add" element={<AddItemPage addItem={addItem} />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/add" element={<AddItemPage />} />
         <Route path="/edit/:id" element={<EditPage />} />
       </Routes>
     </>

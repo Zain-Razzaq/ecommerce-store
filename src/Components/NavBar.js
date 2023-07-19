@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import {
   alpha,
   styled,
@@ -11,6 +13,7 @@ import {
   SearchIcon,
   InputBase,
 } from "../lib/materialUI";
+import { searchTextChanged } from "../data/searchText";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,8 +56,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchAppBar({ setSearch }) {
+function NavBar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   return (
     <Box>
       <AppBar
@@ -93,7 +98,9 @@ function SearchAppBar({ setSearch }) {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={({ target: { value } }) => setSearch(value)}
+              onChange={({ target: { value } }) =>
+                dispatch(searchTextChanged(value))
+              }
             />
           </Search>
         </Toolbar>
@@ -102,4 +109,4 @@ function SearchAppBar({ setSearch }) {
   );
 }
 
-export default SearchAppBar;
+export default NavBar;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
 
-import { addItemInAPI } from "../data/fakeStoreApi";
+import { addItemInAPI } from "../api/fakeStoreApi";
 import { validateFormData } from "../utility/fromValidation";
 import { Box, Typography, TextField, Switch, Button } from "../lib/materialUI";
 
