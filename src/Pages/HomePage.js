@@ -52,7 +52,7 @@ function HomePage() {
       {itemsData.length ? (
         <Grid container spacing={2}>
           {itemsData.map((item) => (
-            <Grid key={item.id} item xs={12} sm={4} md={3}>
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
               <ItemCard itemData={item} deleteItem={deleteItem} />
             </Grid>
           ))}

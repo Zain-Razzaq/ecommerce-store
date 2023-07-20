@@ -1,11 +1,13 @@
+import { getAllProductsURL, getProductByIdURL } from "./apiEndPoints";
+
 function getDataFromAPI() {
-  return fetch("https://fakestoreapi.com/products")
+  return fetch(getAllProductsURL())
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }
 
 function deleteItemFromAPI(id) {
-  return fetch(`https://fakestoreapi.com/products/${id}`, {
+  return fetch(getProductByIdURL(id), {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -14,7 +16,7 @@ function deleteItemFromAPI(id) {
 }
 
 function addItemInAPI({ title, price, description, image, category }) {
-  return fetch("https://fakestoreapi.com/products", {
+  return fetch(getAllProductsURL(), {
     method: "POST",
     body: JSON.stringify({
       title: title,
@@ -30,14 +32,14 @@ function addItemInAPI({ title, price, description, image, category }) {
 }
 
 function getProductById(id) {
-  return fetch(`https://fakestoreapi.com/products/${id}`)
+  return fetch(getProductByIdURL(id))
     .then((res) => res.json())
     .catch((error) => console.error(error));
 }
 
 function updateItemInAPI(updatedItem) {
   const { id, title, price, description, image, category } = updatedItem;
-  return fetch(`https://fakestoreapi.com/products/${id}`, {
+  return fetch(getProductByIdURL(id), {
     method: "PUT",
     body: JSON.stringify({
       title: title,
