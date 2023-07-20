@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Box, Typography, TextField, Button } from "../lib/materialUI";
-import { getProductById, updateItemInAPI } from "../api/fakeStoreApi";
+import { getProductById, updateItemInAPI } from "../data/fakeStoreApi";
 import { validateFormData } from "../utility/fromValidation";
 
 function EditPage() {
@@ -34,27 +34,27 @@ function EditPage() {
 
   async function handelFormSubmit(event) {
     event.preventDefault();
-    const newItem = {};
-    newItem.id = id;
-    newItem.title = event.target.title.value;
-    newItem.description = event.target.description.value;
-    newItem.price = event.target.price.value;
-    newItem.image = event.target.image.value;
-    validateFormData(newItem).then((result) => {
-      setValidInput(result);
-      if (Object.values(result).includes(false)) {
-        return;
-      } else {
-        updateItemInAPI(newItem).then((result) => {
-          if (result) {
-            toast.success("Item Updated Successfully", { theme: "colored" });
-            navigte("/");
-          } else {
-            toast.error("Unable to Update Item", { theme: "colored" });
-          }
-        });
-      }
-    });
+    const newItem = {
+      id,
+      title: event.target.title.value,
+      description: event.target.description.value,
+      price: event.target.price.value,
+      image: event.target.image.value,
+    };
+    const result = await validateFormData(newItem);
+    setValidInput(result);
+    if (Object.values(result).includes(false)) {
+      return;
+    } else {
+      updateItemInAPI(newItem).then((result) => {
+        if (result) {
+          toast.success("Item Updated Successfully", { theme: "colored" });
+          navigte("/");
+        } else {
+          toast.error("Unable to Update Item", { theme: "colored" });
+        }
+      });
+    }
   }
 
   return itemDataToEdit.id ? (

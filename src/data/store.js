@@ -1,13 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import React, { createContext } from "react";
 
-import itemsDataReducers from "./itemsData";
-import searchTextReducers from "./searchText";
+export const storeContext = createContext();
 
-const store = configureStore({
-  reducer: {
-    itemsData: itemsDataReducers,
-    searchText: searchTextReducers,
-  },
-});
+export function Provider({ children, store }) {
+  return (
+    <storeContext.Provider value={store}>{children}</storeContext.Provider>
+  );
+}
 
-export default store;
+function createStore(reducer) {
+  return reducer(undefined, {});
+}
+
+export default createStore;

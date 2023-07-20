@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
 
-import { addItemInAPI } from "../api/fakeStoreApi";
+import { addItemInAPI } from "../data/fakeStoreApi";
 import { validateFormData } from "../utility/fromValidation";
 import { Box, Typography, TextField, Switch, Button } from "../lib/materialUI";
 
@@ -18,27 +18,27 @@ function AddItemPage() {
 
   async function handelFormSubmit(event) {
     event.preventDefault();
-    const newItem = {};
-    newItem.id = nanoid();
-    newItem.title = event.target.title.value;
-    newItem.description = event.target.description.value;
-    newItem.price = event.target.price.value;
-    newItem.image = event.target.image.value;
-    validateFormData(newItem).then((result) => {
-      setValidInput(result);
-      if (Object.values(result).includes(false)) {
-        return;
-      } else {
-        addItemInAPI(newItem).then((result) => {
-          if (result) {
-            toast.success("Item Added Successfully", { theme: "colored" });
-            navigte("/");
-          } else {
-            toast.error("Unable to Add Item", { theme: "colored" });
-          }
-        });
-      }
-    });
+    const newItem = {
+      id: nanoid(),
+      title: event.target.title.value,
+      description: event.target.description.value,
+      price: event.target.price.value,
+      image: event.target.image.value,
+    };
+    const result = await validateFormData(newItem);
+    setValidInput(result);
+    if (Object.values(result).includes(false)) {
+      return;
+    } else {
+      addItemInAPI(newItem).then((result) => {
+        if (result) {
+          toast.success("Item Added Successfully", { theme: "colored" });
+          navigte("/");
+        } else {
+          toast.error("Unable to Add Item", { theme: "colored" });
+        }
+      });
+    }
   }
   return (
     <Box

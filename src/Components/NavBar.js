@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useContext } from "react";
+import { storeContext } from "../data/store";
+import { searchTextChanged } from "../data/actions";
 
 import {
   alpha,
@@ -13,7 +15,6 @@ import {
   SearchIcon,
   InputBase,
 } from "../lib/materialUI";
-import { searchTextChanged } from "../data/searchText";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -57,8 +58,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function NavBar() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { dispatch } = useContext(storeContext);
 
   return (
     <Box>

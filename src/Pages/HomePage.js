@@ -1,20 +1,21 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 
-import { getDataFromAPI, deleteItemFromAPI } from "../api/fakeStoreApi";
 import ItemCard from "../components/ItemCard";
+import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
+import { itemsInitialized, itemDeletedByID } from "../data/actions";
+import { storeContext } from "../data/store";
 import { Container, Typography, Grid, Button } from "../lib/materialUI";
-import { itemDeletedByID, itemsInitialized } from "../data/itemsData";
 
 function HomePage() {
-  const items = useSelector((state) => state.itemsData);
-  const searchText = useSelector((state) => state.searchText);
-  const dispatch = useDispatch();
+  const {
+    store: { itemsData, searchText },
+    dispatch,
+  } = useContext(storeContext);
 
   useEffect(() => {
     getDataFromAPI().then((data) => dispatch(itemsInitialized(data)));
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     const searchTime = setTimeout(() => {
@@ -26,7 +27,7 @@ function HomePage() {
       });
     }, 500);
     return () => clearTimeout(searchTime);
-  }, [dispatch, searchText]);
+  }, [searchText]);
 
   async function deleteItem(id) {
     const deleted = await deleteItemFromAPI(id);
@@ -48,9 +49,9 @@ function HomePage() {
       >
         Add
       </Button>
-      {items.length ? (
+      {itemsData.length ? (
         <Grid container spacing={2}>
-          {items.map((item) => (
+          {itemsData.map((item) => (
             <Grid key={item.id} item xs={12} sm={4} md={3}>
               <ItemCard itemData={item} deleteItem={deleteItem} />
             </Grid>
