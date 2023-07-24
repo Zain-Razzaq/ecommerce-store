@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Routes } from "react-router-dom";
 
 import createStore, { Provider } from "./data/store";
 import reducer from "./data/reducers";
@@ -17,9 +16,7 @@ function App() {
   return (
     <Provider store={{ store, dispatch }}>
       <NavBar />
-      <Routes>
-        <AllRoutes />
-      </Routes>
+      <AllRoutes />
     </Provider>
   );
 }
