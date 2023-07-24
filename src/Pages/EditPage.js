@@ -6,6 +6,7 @@ import { Box, Typography } from "../lib/materialUI";
 import { getProductById, updateItemInAPI } from "../data/fakeStoreApi";
 import { useForm } from "react-hook-form";
 import FormInputs from "../utility/formInputs";
+import Loader from "../components/loader/loader";
 
 function EditPage() {
   const { id } = useParams();
@@ -70,18 +71,7 @@ function EditPage() {
       </form>
     </Box>
   ) : (
-    <Typography
-      variant="h4"
-      component="h1"
-      sx={{
-        marginTop: "90px",
-        color: "#0F4C75",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      Loading...
-    </Typography>
+    <Loader />
   );
 }
 

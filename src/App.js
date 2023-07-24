@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
 
 import createStore, { Provider } from "./data/store";
 import reducer from "./data/reducers";
 
 import NavBar from "./components/NavBar";
-import HomePage from "./pages/HomePage";
-import AddItemPage from "./pages/AddItemPage";
-import EditPage from "./pages/EditPage";
+import AllRoutes from "./AllRoutes";
 
 function App() {
   const [store, setStore] = useState(createStore(reducer));
@@ -20,9 +18,7 @@ function App() {
     <Provider store={{ store, dispatch }}>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/add" element={<AddItemPage />} />
-        <Route path="/edit/:id" element={<EditPage />} />
+        <AllRoutes />
       </Routes>
     </Provider>
   );

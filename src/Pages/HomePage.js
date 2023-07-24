@@ -6,6 +6,7 @@ import { getDataFromAPI, deleteItemFromAPI } from "../data/fakeStoreApi";
 import { itemsInitialized, itemDeletedByID } from "../data/actions";
 import { storeContext } from "../data/store";
 import { Container, Typography, Grid, Button } from "../lib/materialUI";
+import Loader from "../components/loader/loader";
 
 function HomePage() {
   const {
@@ -58,13 +59,7 @@ function HomePage() {
           ))}
         </Grid>
       ) : (
-        <Typography
-          variant="h4"
-          component="h1"
-          sx={{ color: "#0F4C75", display: "flex", justifyContent: "center" }}
-        >
-          NO ITEMS FOUND
-        </Typography>
+        <Loader />
       )}
     </Container>
   );
